@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Event</title>
+    <link rel="icon" href="img/icon.jpg" type="icon/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Syne', sans-serif;
+            background: black;
+            color: white;
+            overflow-x: hidden;
+            position: relative; /* Ensure stacking context for z-index */
+        }
+
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Keep it behind other content */
+            overflow: hidden;
+            background: black; /* Ensure a fallback background color */
+        }
+
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0; /* Initially hidden */
+            transition: opacity 1s ease-in-out; /* Smooth fade effect */
+        }
+
+        .content {
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: #00ffcc;
+        }
+
+        section {
+            margin-bottom: 100px;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #ff6f61;
+        }
+
+        section p {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow">
+        <img src="img/event3.png" alt="Slideshow Image 1">
+        <img src="img/event3.png" alt="Slideshow Image 2">
+        <img src="img/event3.png" alt="Slideshow Image 3">
+        <img src="img/event3.png" alt="Slideshow Image 4">
+    </div>
+
+    <div class="content">
+        <h1>Past Event: Hackathon 2024</h1>
+
+        <section>
+            <h2>Introduction</h2>
+            <p>
+                Hackathon 2024 was an incredible 24-hour event where developers, designers, and innovators came together to create amazing projects. 
+                Hosted in the heart of the city, the event provided an exciting platform for creativity and collaboration.
+            </p>
+        </section>
+
+        <section>
+            <h2>Highlights</h2>
+            <p>
+                Participants developed cutting-edge applications in areas such as AI, web development, and mobile apps. 
+                Expert mentors guided teams, and engaging workshops added immense value to the event.
+            </p>
+        </section>
+
+        <section>
+            <h2>Awards</h2>
+            <p>
+                The event concluded with a grand ceremony, recognizing the top three teams for their exceptional projects and contributions. 
+                Special prizes were also awarded for innovation and teamwork.
+            </p>
+        </section>
+
+        <section>
+            <h2>Closing Remarks</h2>
+            <p>
+                Hackathon 2024 was more than just a competition; it was a celebration of innovation and community. 
+                We look forward to seeing you at our future events!
+            </p>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Slideshow animation
+            const slideshowImages = document.querySelectorAll('.slideshow img');
+            let currentImageIndex = 0;
+
+            // Set the first image to visible
+            gsap.set(slideshowImages[currentImageIndex], { opacity: 1 });
+
+            function showNextImage() {
+                gsap.to(slideshowImages[currentImageIndex], { opacity: 0, duration: 1 });
+                currentImageIndex = (currentImageIndex + 1) % slideshowImages.length;
+                gsap.to(slideshowImages[currentImageIndex], { opacity: 1, duration: 1 });
+            }
+
+            setInterval(showNextImage, 5000); // Change image every 5 seconds
+
+            // Scroll animations for content
+            gsap.utils.toArray('section').forEach((section) => {
+                gsap.fromTo(
+                    section,
+                    { y: 50, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power4.out',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 80%',
+                        },
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+</html>

@@ -121,7 +121,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		})
 	}
 	benefits();
-
+	gsap.from(".past-events__card", {
+		opacity: 0,
+		y: 50,
+		duration: 0.8,
+		stagger: 0.2,
+		scrollTrigger: {
+			trigger: ".past-events",
+			start: "top 80%",
+		},
+	});
+	
 
 	//portfolio
 	function portfolio() {
